@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Resume | Sai Akash Deepak Veluvarthi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: A single-page dashboard with tabbed navigation (Overview, Experience, Projects, Education & Skills). This structure allows recruiters to immediately access high-impact data in 'Overview' or deep-dive into specific areas. Adding a dedicated 'Education' section elevates the formal PM training and academic background, reinforcing the candidate's qualifications for a strategic role. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Key percentage-based achievements (e.g., reduced cart abandonment by 30%). -> Goal: Compare & Inform -> Viz: Bar Chart (Chart.js) -> Interaction: Hover tooltips for details. -> Justification: Provides an immediate, quantifiable summary of the candidate's impact.
+        - Report Info: Skills across different categories. -> Goal: Organize & Inform -> Viz: Radar Chart (Chart.js) -> Interaction: Hover tooltips. -> Justification: Offers a holistic, visually engaging representation of a diverse skillset.
+        - Report Info: Education and Certifications -> Goal: Inform & Establish Credibility -> Presentation: Structured text cards. -> Interaction: Static display. -> Justification: Clearly presents foundational qualifications and commitment to the product management field.
+        - Library/Method: All visualizations are rendered on <canvas> using Chart.js. All interactive elements are handled with vanilla JavaScript. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+            color: #3d3d3d;
+        }
+        .nav-button {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav-button.active::after, .nav-button:hover::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #4a90e2;
+        }
+        .stat-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.07);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">SAI AKASH DEEPAK VELUVARTHI</h1>
+            <p class="text-xl text-gray-600 mt-2">Aspiring Product Manager | AI & Technology Enthusiast</p>
+            <div class="flex justify-center space-x-6 mt-4 text-sm text-gray-500">
+                <span>+91 6303215153</span>
+                <span>tbm26akash.deepak@mastersunion.org</span>
+                <a href="https://www.linkedin.com/in/akashdeepak/" target="_blank" class="text-blue-600 hover:underline">LinkedIn</a>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="flex justify-center border-b mb-8">
+            <button class="nav-button py-2 px-6 text-lg font-medium text-gray-700 active" data-target="overview">Overview</button>
+            <button class="nav-button py-2 px-6 text-lg font-medium text-gray-700" data-target="experience">Experience</button>
+            <button class="nav-button py-2 px-6 text-lg font-medium text-gray-700" data-target="projects">Projects</button>
+            <button class="nav-button py-2 px-6 text-lg font-medium text-gray-700" data-target="education_skills">Education & Skills</button>
+        </nav>
+
+        <main>
+            <!-- Overview Section -->
+            <section id="overview" class="content-section active">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2 stat-card">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Professional Summary</h2>
+                        <p class="text-gray-600 leading-relaxed">A technology professional with a product-centric mindset and nearly 3 years of software engineering experience in a top-tier e-commerce firm. Proven ability to translate complex business needs into high-impact solutions, leveraging data from millions of users to inform product strategy and identify opportunities for **AI-powered personalization**. Eager to apply a strong technical foundation and formal product management training to build and scale innovative, AI-driven products.</p>
+                    </div>
+                    <div class="stat-card">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Key Achievements</h2>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-center"><span class="text-green-500 font-bold text-2xl mr-3">30%</span> Reduction in Cart Abandonment</li>
+                            <li class="flex items-center"><span class="text-green-500 font-bold text-2xl mr-3">25%</span> Faster Page Load Times</li>
+                            <li class="flex items-center"><span class="text-green-500 font-bold text-2xl mr-3">15%</span> Acceleration in Feature Delivery</li>
+                             <li class="flex items-center"><span class="text-green-500 font-bold text-2xl mr-3">20%</span> Decrease in User Drop-off</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="stat-card mt-8">
+                    <h2 class="text-2xl font-bold text-center text-gray-800 mb-4">Visualized Impact at TATA CLiQ</h2>
+                    <p class="text-center text-gray-600 mb-6">This chart visualizes the key performance indicators improved through product optimization initiatives</p>
+                    <div class="chart-container">
+                        <canvas id="impactChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experience Section -->
+            <section id="experience" class="content-section">
+                <div class="stat-card">
+                    <h2 class="text-3xl font-bold text-center text-gray-800 mb-2">Professional Experience</h2>
+                    <div class="text-center mb-8">
+                        <p class="text-xl font-semibold text-gray-700">TATA UNISTORE (TATA CLiQ)</p>
+                        <p class="text-md text-gray-500">Software Development Engineer - Product Optimization | Jan 2022 - Sep 2024</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-blue-200">Product Strategy & Analytics</h3>
+                            <ul class="space-y-4 text-gray-600">
+                                <li><strong>Defined and executed a product analytics strategy</strong>, instrumenting over <strong>35%</strong> of application touchpoints to generate actionable user insights that directly informed the product roadmap and feature prioritization.</li>
+                                <li><strong>Owned the A/B testing and experimentation framework</strong> for the user onboarding funnel, developing data-backed hypotheses that led to a <strong>15-20% reduction in user drop-off</strong>.</li>
+                                <li>Conducted user journey analysis and market research to champion a revamped checkout experience, collaborating with design and business teams to develop a solution that <strong>slashed cart abandonment by over 30%</strong>.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-blue-200">Cross-Functional Collaboration & Execution</h3>
+                            <ul class="space-y-4 text-gray-600">
+                                <li><strong>Partnered with product, business, and design stakeholders</strong> to translate high-level business requirements into a concrete technical roadmap, <strong>accelerating feature delivery by 15%</strong>.</li>
+                                <li>Led the technical analysis to identify and prioritize critical P0/P1 bugs, collaborating with engineering to ship fixes that <strong>stabilized core product paths and improved overall UX</strong>.</li>
+                                <li>Spearheaded performance optimization for the product details page, which <strong>reduced load times by 25%</strong> and directly contributed to a more seamless customer journey.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="content-section">
+                 <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Product & AI Projects</h2>
+                 <p class="text-center max-w-3xl mx-auto text-gray-600 mb-12">These projects demonstrate a strong capability in both foundational machine learning and full-stack development, showcasing the ability to manage a project from ideation to execution. They reflect a passion for applying technology to solve practical problems.</p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="stat-card">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">Machine Learning: AI Image Caption Generator</h3>
+                        <p class="text-gray-600 mb-4">Developed and trained a deep learning model using <strong>Convolutional Neural Networks (CNNs) and LSTMs</strong> to automatically generate accurate, context-rich captions for images.</p>
+                        <p class="text-gray-600">Engineered the end-to-end project lifecycle, from data preprocessing and model architecture design to performance evaluation, demonstrating a strong foundational understanding of applied ML principles.</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">Full-Stack: House Rental Management System</h3>
+                        <p class="text-gray-600 mb-4">Designed and built a secure, full-stack tenant and rental management application using <strong>Java and SQL</strong>.</p>
+                        <p class="text-gray-600">Engineered core features for automated rent reminders and secure data handling, focusing on creating a streamlined and intuitive user flow for property managers.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Education & Skills Section -->
+            <section id="education_skills" class="content-section">
+                <div class="stat-card mb-8">
+                    <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Education & Certifications</h2>
+                    <div class="grid md:grid-cols-2 gap-8 text-center">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800">MASTERS' UNION</h3>
+                            <p class="text-gray-600">PGP in Technology & Business Management</p>
+                            <p class="text-gray-500 text-sm">2025 - 2026</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800">VELLORE INSTITUTE OF TECHNOLOGY (VIT-AP)</h3>
+                            <p class="text-gray-600">Bachelor of Technology (B.Tech) | GPA: 8.68/10</p>
+                            <p class="text-gray-500 text-sm">2018 - 2022</p>
+                        </div>
+                         <div class="md:col-span-2 mt-4">
+                            <h3 class="text-xl font-bold text-gray-800">CERTIFIED PRODUCT MANAGER</h3>
+                            <p class="text-gray-600">Practitioner-led Cohort from AltUni-InsideIIM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">Skills & Competencies</h2>
+                    <p class="text-center max-w-3xl mx-auto text-gray-600 mb-8">This radar chart provides a holistic view of key competencies, balancing strategic product management skills with a strong foundation in modern technologies and development tools.</p>
+                    <div class="chart-container h-[500px] max-h-[70vh]">
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navButtons = document.querySelectorAll('.nav-button');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const target = button.dataset.target;
+
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    contentSections.forEach(section => {
+                        if (section.id === target) {
+                            section.classList.add('active');
+                        } else {
+                            section.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            
+            const impactData = {
+                labels: ['Cart Abandonment Reduction', 'Page Load Time Reduction', 'Feature Delivery Acceleration', 'User Drop-off Reduction'],
+                datasets: [{
+                    label: 'Improvement (%)',
+                    data: [30, 25, 15, 20],
+                    backgroundColor: [
+                        'rgba(74, 144, 226, 0.6)',
+                        'rgba(80, 227, 194, 0.6)',
+                        'rgba(245, 166, 35, 0.6)',
+                        'rgba(126, 211, 33, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(74, 144, 226, 1)',
+                        'rgba(80, 227, 194, 1)',
+                        'rgba(245, 166, 35, 1)',
+                        'rgba(126, 211, 33, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const impactChartCtx = document.getElementById('impactChart').getContext('2d');
+            new Chart(impactChartCtx, {
+                type: 'bar',
+                data: impactData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Percentage Improvement (%)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw}% Improvement`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const skillsData = {
+                labels: [
+                    'Roadmapping', 'A/B Testing', 'Data Analysis', 'Agile/Scrum', 'Stakeholder Mgmt', 
+                    'Python', 'Java/Swift', 'SQL', 
+                    'Jira/Notion', 'Figma', 'Power BI' 
+                ],
+                datasets: [{
+                    label: 'Product Management',
+                    data: [4, 5, 5, 5, 4, 0, 0, 0, 0, 0, 0],
+                    fill: true,
+                    backgroundColor: 'rgba(74, 144, 226, 0.2)',
+                    borderColor: 'rgb(74, 144, 226)',
+                    pointBackgroundColor: 'rgb(74, 144, 226)',
+                }, {
+                    label: 'Technical Skills',
+                    data: [0, 0, 0, 0, 0, 4, 5, 4, 0, 0, 0],
+                    fill: true,
+                    backgroundColor: 'rgba(80, 227, 194, 0.2)',
+                    borderColor: 'rgb(80, 227, 194)',
+                    pointBackgroundColor: 'rgb(80, 227, 194)',
+                }, {
+                    label: 'Tools & Platforms',
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 5, 4, 4],
+                    fill: true,
+                    backgroundColor: 'rgba(245, 166, 35, 0.2)',
+                    borderColor: 'rgb(245, 166, 35)',
+                    pointBackgroundColor: 'rgb(245, 166, 35)',
+                }]
+            };
+
+            const skillsChartCtx = document.getElementById('skillsChart').getContext('2d');
+            new Chart(skillsChartCtx, {
+                type: 'radar',
+                data: skillsData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: false
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 5,
+                             pointLabels: {
+                                font: {
+                                    size: 14
+                                }
+                            },
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                           enabled: false
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
