@@ -34,10 +34,15 @@
             padding: 1.5rem;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
         .stat-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.07);
+        }
+        .stat-card-content {
+            flex-grow: 1;
         }
         .chart-container {
             position: relative;
@@ -70,7 +75,7 @@
         <!-- Header -->
         <header class="text-center mb-10">
             <h1 class="text-4xl md:text-5xl font-bold text-gray-800">SAI AKASH DEEPAK VELUVARTHI</h1>
-            <p class="text-xl text-gray-600 mt-2">Aspiring AI <strong>Product Manager</strong> | <strong>Technology </strong>Enthusiast</p>
+            <p class="text-xl text-gray-600 mt-2">Aspiring AI <strong>Product Manager</strong> | <strong>Technology Enthusiast</strong></p>
             <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 mt-4 text-sm text-gray-500">
                 <span>+91 6303215153</span>
                 <span>tbm26akash.deepak@mastersunion.org</span>
@@ -92,10 +97,10 @@
                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
                     <div class="lg:col-span-3 stat-card">
                         <h2 class="text-2xl font-bold text-gray-800 mb-4">My Professional Summary</h2>
-                        <p class="text-gray-600 leading-relaxed">I'm a technology professional with a <strong>product-centric mindset</strong> and nearly 3 years of software engineering experience in a top-tier e-commerce firm. I have a proven ability to translate complex business needs into high-impact solutions, leveraging data from thousands of users to inform <strong>product strategy</strong> and identify opportunities for <strong>AI-powered personalization</strong>. I'm eager to apply my strong technical foundation and formal product management training to build and scale innovative, AI-driven products.</p>
+                        <p class="text-gray-600 leading-relaxed">I'm a technology professional with a <strong>product-centric mindset</strong> and nearly 3 years of software engineering experience in a top-tier e-commerce firm. I have a proven ability to translate complex business needs into high-impact solutions, leveraging data from millions of users to inform <strong>product strategy</strong> and identify opportunities for <strong>AI-powered personalization</strong>. I'm eager to apply my strong technical foundation and formal product management training to build and scale innovative, AI-driven products.</p>
                     </div>
                     <div class="lg:col-span-2 stat-card">
-                         <h2 class="text-2xl font-bold text-center text-gray-800 mb-4">Impact at TATA CLiQ</h2>
+                         <h2 class="text-2xl font-bold text-center text-gray-800 mb-4">My Visualized Impact at TATA CLiQ</h2>
                         <p class="text-center text-gray-600 mb-6 text-sm">Here, I've visualized the key performance indicators I helped improve, highlighting my focus on enhancing user experience and driving business results.</p>
                         <div class="chart-container h-64">
                             <canvas id="impactChart"></canvas>
@@ -118,30 +123,33 @@
                          <h2 class="text-3xl font-bold text-center text-gray-800 mb-2">My Professional Experience</h2>
                         <div class="text-center mb-8">
                             <p class="text-xl font-semibold text-gray-700">TATA UNISTORE (TATA CLiQ)</p>
-                            <p class="text-md text-gray-500">Software Development Engineer - <strong>Product Optimization</strong> | July 2022 - Sep 2024</p>
+                            <p class="text-md text-gray-500">Software Development Engineer - Product Optimization | Jan 2022 - Sep 2024</p>
                         </div>
                         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                             <div class="lg:col-span-1">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-blue-200">Product Strategy & Analytics</h3>
                                 <ul class="space-y-4 text-gray-600">
-                                    <li><strong>Defined and executed a product analytics strategy</strong>, instrumenting over <strong>35%</strong> of application touchpoints to generate actionable user insights that directly informed the product roadmap and feature prioritization.</li>
-                                    <li><strong>Owned the A/B testing and experimentation framework</strong> for the user onboarding funnel, developing data-backed hypotheses that led to a <strong>15-20% reduction in user drop-off</strong>.</li>
-				 	<li>Spearheaded performance optimization for the product details page, which <strong>reduced load times by 25%</strong> and directly contributed to a more seamless customer journey.</li>
+                                    <li><strong>Defined and executed a product analytics strategy</strong>, instrumenting over <strong>35-40%</strong> of app touchpoints to generate user insights that directly guided product strategy.</li>
+                                    <li><strong>Leveraged user behavior analytics</strong> to re-prioritize the development backlog, improving feature delivery and adoption by <strong>12-15%</strong>.</li>
+                                    <li><strong>Owned the A/B testing framework</strong> for the user onboarding funnel, developing data-backed hypotheses that led to a <strong>15-20% reduction in user drop-off</strong>.</li>
                                 </ul>
                             </div>
                             <div class="lg:col-span-1">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-blue-200">Cross-Functional Collaboration</h3>
                                 <ul class="space-y-4 text-gray-600">
-                                     <li>Conducted <strong>user journey analysis and market research</strong> to champion a revamped checkout experience, collaborating with design and business teams to develop a solution that <strong>slashed cart abandonment by over 30%</strong>.</li>
-                                    <li><strong>Partnered with product, business, and design stakeholders</strong> to translate high-level business requirements into a concrete technical roadmap, <strong>accelerating feature delivery by 15%</strong>.</li>
-                                    <li>Led the technical analysis to identify and prioritize critical P0/P1 bugs, collaborating with engineering to ship fixes that <strong>stabilized core product paths and improved overall UX</strong>.</li>
+                                     <li>Conducted <strong>user journey analysis</strong> to champion a new checkout experience, collaborating with design and business teams to slash cart abandonment by over <strong>30%</strong>.</li>
+                                    <li><strong>Partnered with product & business stakeholders</strong> to align needs and feature roadmaps, <strong>accelerating feature delivery by around 15%</strong>.</li>
+                                    <li>Led technical analysis to prioritize and resolve critical P0/P1 bugs, <strong>stabilizing core product paths and improving overall UX</strong>.</li>
                                 </ul>
                             </div>
                              <div class="lg:col-span-1">
-                                <h3 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-blue-200">Role Focus</h3>
-                                <div class="chart-container h-64">
-                                    <canvas id="roleFocusChart"></canvas>
-                                </div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-blue-200">Technical Problem-solving</h3>
+                                 <ul class="space-y-4 text-gray-600">
+                                    <li>Identified a search feature bottleneck and implemented a solution that <strong>cut load times by 30-40%</strong>.</li>
+                                    <li>Spearheaded performance improvements on the product details page, <strong>reducing load times by 18-20%</strong>.</li>
+                                    <li><strong>Re-architected the codebase using MVVM</strong> and increased unit test coverage by <strong>18-20%</strong>, improving long-term product stability and scalability.</li>
+                                    <li>Executed a cross-team knowledge sharing initiative, fostering collaboration and <strong>improving code efficiency by 15%</strong>.</li>
+                                 </ul>
                             </div>
                         </div>
                     </div>
@@ -150,10 +158,10 @@
                         <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Internship & Leadership Experience</h2>
                         <div class="grid md:grid-cols-2 gap-x-8 gap-y-10 items-start">
                              <div>
-                                <h3 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-blue-200">iOS Development intern</h3>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-blue-200">Product Innovation (Internship)</h3>
                                  <div class="mb-4">
                                     <p class="text-lg font-semibold text-gray-700">TATA UNISTORE (TATA CLiQ)</p>
-                                    <p class="text-sm text-gray-500">Jan 2022 - Jul 2022</p>
+                                    <p class="text-sm text-gray-500">iOS Development Trainee | Jan 2022 - Jul 2022</p>
                                 </div>
                                 <ul class="space-y-3 text-gray-600">
                                    <li><strong>Spearheaded the integration of Custom Siri Intents</strong> to enhance hands-free user journeys, aligning voice-assistant features with user needs and product roadmap priorities.</li>
@@ -178,18 +186,46 @@
 
             <!-- Projects Section -->
             <section id="projects" class="content-section">
-                 <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">My Product & AI Projects</h2>
-                 <p class="text-center max-w-3xl mx-auto text-gray-600 mb-12">These projects reflect my passion for applying technology to solve practical problems. They show my ability to manage a project from ideation to execution, with strong foundations in both machine learning and full-stack development.</p>
-                <div class="grid md:grid-cols-2 gap-8">
+                 <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">My Projects</h2>
+                 <p class="text-center max-w-3xl mx-auto text-gray-600 mb-12">These projects reflect my passion for applying technology to solve practical problems, showcasing my ability to manage a project from ideation to execution.</p>
+                
+                <h3 class="text-2xl font-bold text-center text-gray-700 mb-4">AI & Full-Stack Development</h3>
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
                     <div class="stat-card">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-3">Machine Learning: AI Image Caption Generator</h3>
-                        <p class="text-gray-600 mb-4">In the project,I developed and trained a deep learning model using <strong>Convolutional Neural Networks (CNNs) and LSTMs</strong> to automatically generate accurate, context-rich captions for images.</p>
-                        <p class="text-gray-600">I engineered the end-to-end project lifecycle, from data preprocessing and model architecture design to performance evaluation, demonstrating a strong foundational understanding of applied ML principles.</p>
+                         <div class="stat-card-content">
+                            <h4 class="text-xl font-bold text-gray-800 mb-3">Machine Learning: AI Image Caption Generator</h4>
+                            <p class="text-gray-600 mb-4">I developed and trained a deep learning model using <strong>CNNs and LSTMs</strong> to automatically generate accurate, context-rich captions for images.</p>
+                            <p class="text-gray-600">I engineered the end-to-end project lifecycle, from data preprocessing and <strong>model architecture design</strong> to performance evaluation, demonstrating a strong foundational understanding of applied ML principles.</p>
+                        </div>
                     </div>
                     <div class="stat-card">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-3">Full-Stack: House Rental Management System</h3>
-                        <p class="text-gray-600 mb-4">I designed and built a secure, full-stack tenant and rental management application using <strong>Java and SQL</strong>.</p>
-                        <p class="text-gray-600">I've succeeded in engineering core features for automated rent reminders and secure data handling, focusing on creating a streamlined and intuitive user flow for property managers.</p>
+                        <div class="stat-card-content">
+                            <h4 class="text-xl font-bold text-gray-800 mb-3">Full-Stack: House Rental Management System</h4>
+                            <p class="text-gray-600 mb-4">I designed and built a secure, full-stack tenant and rental management application using <strong>Java and SQL</strong>.</p>
+                            <p class="text-gray-600">I engineered core features for automated rent reminders and secure data handling, focusing on creating a streamlined and intuitive <strong>user flow for property managers</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold text-center text-gray-700 mb-4">Web3 & Blockchain Proof-of-Concepts</h3>
+                <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+                     <div class="stat-card">
+                        <div class="stat-card-content">
+                            <h4 class="text-xl font-bold text-gray-800 mb-3">Verifiable Authenticity Platform</h4>
+                            <p class="text-gray-600">Designed a decentralized application prototype to combat counterfeit goods by linking physical products to a unique <strong>"Digital Twin" NFT (ERC-721)</strong>. Developed a front-end to read and display an item's provenance from the blockchain, demonstrating a solution for enhancing supply chain transparency and consumer trust.</p>
+                        </div>
+                    </div>
+                     <div class="stat-card">
+                        <div class="stat-card-content">
+                            <h4 class="text-xl font-bold text-gray-800 mb-3">Milestone-Based Escrow DApp</h4>
+                            <p class="text-gray-600">Architected a smart contract-based escrow system to automate and secure payments for freelance projects. Designed the <strong>on-chain logic for milestone-based fund release</strong>, creating a trustless environment for B2B transactions. The front-end prototype provides a shared dashboard for clients and freelancers to track project status.</p>
+                        </div>
+                    </div>
+                     <div class="stat-card">
+                        <div class="stat-card-content">
+                            <h4 class="text-xl font-bold text-gray-800 mb-3">Decentralized Data Consent Manager</h4>
+                            <p class="text-gray-600">Prototyped a consent management platform empowering users with sovereignty over their data for AI training. Designed the <strong>on-chain access control logic</strong>, allowing users to grant, manage, and revoke data permissions. This project explores a transparent and equitable model for the AI data economy.</p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -206,12 +242,12 @@
                         </div>
                         <div>
                             <h3 class="text-xl font-bold text-gray-800">VELLORE INSTITUTE OF TECHNOLOGY (VIT-AP)</h3>
-                            <p class="text-gray-600">Bachelor of Technology (B.Tech) | <strong>GPA: 8.68/10</strong></p>
+                            <p class="text-gray-600">Bachelor of Technology (B.Tech) | GPA: 8.68/10</p>
                             <p class="text-gray-500 text-sm">2018 - 2022</p>
                         </div>
                          <div class="md:col-span-2 mt-4">
                             <h3 class="text-xl font-bold text-gray-800">CERTIFIED PRODUCT MANAGER</h3>
-                            <p class="text-gray-600">Practitioner-led Cohort from AltUni-<strong>InsideIIM</strong></p>
+                            <p class="text-gray-600">Practitioner-led Cohort from AltUni-InsideIIM</p>
                         </div>
                     </div>
                 </div>
@@ -264,30 +300,18 @@
                 toggleInternshipBtn.classList.add('active');
             });
             
-            const impactData = {
-                labels: ['Cart Abandonment Reduction', 'Page Load Time Reduction', 'Feature Delivery Acceleration', 'User Drop-off Reduction'],
-                datasets: [{
-                    label: 'Improvement (%)',
-                    data: [30, 25, 15, 20],
-                    backgroundColor: [
-                        'rgba(74, 144, 226, 0.6)',
-                        'rgba(80, 227, 194, 0.6)',
-                        'rgba(245, 166, 35, 0.6)',
-                        'rgba(126, 211, 33, 0.6)'
-                    ],
-                    borderColor: [
-                        'rgba(74, 144, 226, 1)',
-                        'rgba(80, 227, 194, 1)',
-                        'rgba(245, 166, 35, 1)',
-                        'rgba(126, 211, 33, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            };
-
             new Chart(document.getElementById('impactChart').getContext('2d'), {
                 type: 'bar',
-                data: impactData,
+                data: {
+                    labels: ['Cart Abandonment Reduction', 'Search Load Time Reduction', 'Page Load Time Reduction', 'Feature Delivery Acceleration'],
+                    datasets: [{
+                        label: 'Improvement (%)',
+                        data: [30, 40, 25, 15],
+                        backgroundColor: ['rgba(74, 144, 226, 0.6)', 'rgba(219, 68, 55, 0.6)', 'rgba(80, 227, 194, 0.6)', 'rgba(245, 166, 35, 0.6)'],
+                        borderColor: ['rgba(74, 144, 226, 1)', 'rgba(219, 68, 55, 1)', 'rgba(80, 227, 194, 1)', 'rgba(245, 166, 35, 1)'],
+                        borderWidth: 1
+                    }]
+                },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
@@ -297,51 +321,34 @@
                 }
             });
 
-            const roleFocusData = {
-                labels: ['Product Strategy', 'Data Analytics', 'Execution & Collaboration'],
-                datasets: [{
-                    data: [40, 35, 25],
-                    backgroundColor: ['rgba(74, 144, 226, 0.7)', 'rgba(80, 227, 194, 0.7)', 'rgba(245, 166, 35, 0.7)'],
-                }]
-            };
-            
-            new Chart(document.getElementById('roleFocusChart').getContext('2d'), {
-                type: 'doughnut',
-                data: roleFocusData,
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 12 } } } }
-            });
-
             const skillsData = {
                 labels: [
-                    'Roadmapping', 'A/B Testing', 'Agile/Scrum', 'Voice UI/UX',
-                    'Python', 'Pandas/NumPy', 'Scikit-learn', 'Java/Swift', 'SQL', 'API Integration',
-                    'Jira/Notion', 'Figma', 'Power BI',
-                    'Tokenomics', 'Solidity', 'Smart Contracts'
+                    'Roadmapping', 'A/B Testing', 'User Research', 'Agile/Scrum',
+                    'Python', 'Java/Swift', 'Javascript', 'SQL', 'MVVM Architecture',
+                    'Pandas/NumPy', 'Scikit-learn',
+                    'Jira/Notion', 'Figma', 'Power BI', 'Git',
+                    'Tokenomics', 'Solidity', 'Smart Contracts', 'Ethers.js'
                 ],
                 datasets: [{
                     label: 'Product Management',
-                    data: [4, 5, 5, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    fill: true,
-                    backgroundColor: 'rgba(74, 144, 226, 0.2)',
-                    borderColor: 'rgb(74, 144, 226)',
+                    data: [4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    fill: true, backgroundColor: 'rgba(74, 144, 226, 0.2)', borderColor: 'rgb(74, 144, 226)',
                 }, {
                     label: 'Technical Skills',
-                    data: [0, 0, 0, 0, 4, 3, 3, 5, 4, 4, 0, 0, 0, 0, 0, 0],
-                    fill: true,
-                    backgroundColor: 'rgba(80, 227, 194, 0.2)',
-                    borderColor: 'rgb(80, 227, 194)',
+                    data: [0, 0, 0, 0, 4, 5, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    fill: true, backgroundColor: 'rgba(80, 227, 194, 0.2)', borderColor: 'rgb(80, 227, 194)',
+                },{
+                    label: 'Data & AI',
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0],
+                    fill: true, backgroundColor: 'rgba(219, 68, 55, 0.2)', borderColor: 'rgb(219, 68, 55)',
                 }, {
                     label: 'Tools & Platforms',
-                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 4, 4, 0, 0, 0],
-                    fill: true,
-                    backgroundColor: 'rgba(245, 166, 35, 0.2)',
-                    borderColor: 'rgb(245, 166, 35)',
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 0, 0, 0, 0],
+                    fill: true, backgroundColor: 'rgba(245, 166, 35, 0.2)', borderColor: 'rgb(245, 166, 35)',
                 }, {
                     label: 'Web3 Development',
-                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3],
-                    fill: true,
-                    backgroundColor: 'rgba(139, 92, 246, 0.2)',
-                    borderColor: 'rgb(139, 92, 246)',
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3],
+                    fill: true, backgroundColor: 'rgba(139, 92, 246, 0.2)', borderColor: 'rgb(139, 92, 246)',
                 }]
             };
 
@@ -351,13 +358,11 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    scales: { r: { suggestedMin: 0, suggestedMax: 5, pointLabels: { font: { size: 13 } }, ticks: { stepSize: 1 } } },
-                    plugins: { legend: { position: 'top' }, tooltip: { enabled: true } }
+                    scales: { r: { suggestedMin: 0, suggestedMax: 5, pointLabels: { font: { size: 12 } }, ticks: { stepSize: 1 } } },
+                    plugins: { legend: { position: 'top', labels:{ font:{size:11}}}, tooltip: { enabled: true } }
                 }
             });
         });
     </script>
 </body>
 </html>
-
-
