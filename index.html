@@ -1,368 +1,402 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Resume | Sai Akash Deepak Veluvarthi</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f7f4;
-            color: #3d3d3d;
-        }
-        .nav-button {
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        .nav-button.active::after, .nav-button:hover::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background-color: #4a90e2;
-        }
-        .stat-card {
-            background-color: #ffffff;
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.07);
-        }
-        .stat-card-content {
-            flex-grow: 1;
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 400px;
-            max-height: 50vh;
-        }
-        .content-section, .experience-content {
-            display: none;
-        }
-        .content-section.active, .experience-content.active {
-            display: block;
-        }
-        .experience-toggle-btn {
-            background-color: #e5e7eb;
-            color: #4b5563;
-        }
-        .experience-toggle-btn.active {
-            background-color: #4a90e2;
-            color: #ffffff;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sai Akash Deepak — PM Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#080d1a;
+    --surface:#0f1628;
+    --surface2:#151d35;
+    --accent:#00d4ff;
+    --accent2:#7c6ffb;
+    --text:#e8edf8;
+    --muted:#6b7a9d;
+    --border:#1e2a47;
+  }
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;overflow-x:hidden;cursor:none}
+
+  #cursor{position:fixed;width:12px;height:12px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transition:transform .15s ease,opacity .2s;mix-blend-mode:screen}
+  #cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transition:transform .35s cubic-bezier(.23,1,.32,1),opacity .3s;opacity:.5}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(8,13,26,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+  .nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:.05em;color:var(--accent)}
+  .nav-links{display:flex;gap:2rem}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;transition:color .2s}
+  .nav-links a:hover{color:var(--accent)}
+
+  section{padding:6rem 3rem;max-width:1100px;margin:0 auto}
+
+  /* HERO */
+  #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:8rem;position:relative;max-width:100%;margin:0}
+  .hero-inner{max-width:1100px;margin:0 auto;padding:0 3rem}
+  .hero-tag{font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:1.5rem;opacity:0;animation:fadeUp .6s .2s forwards}
+  .hero-name{font-family:'Syne',sans-serif;font-size:clamp(3rem,7vw,5.5rem);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin-bottom:.5rem;opacity:0;animation:fadeUp .7s .35s forwards}
+  .hero-name span{color:var(--accent)}
+  .hero-sub{font-family:'Syne',sans-serif;font-size:clamp(1.1rem,2.5vw,1.6rem);font-weight:400;color:var(--muted);margin-bottom:1.5rem;opacity:0;animation:fadeUp .7s .5s forwards;min-height:2rem}
+  .hero-desc{font-size:1.05rem;color:var(--muted);max-width:540px;line-height:1.75;margin-bottom:2.5rem;opacity:0;animation:fadeUp .7s .65s forwards}
+  .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp .7s .8s forwards}
+  .btn-primary{padding:.75rem 1.8rem;background:var(--accent);color:#080d1a;border:none;border-radius:4px;font-family:'Manrope',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.05em;text-transform:uppercase;cursor:none;transition:transform .2s,box-shadow .2s;text-decoration:none;display:inline-block}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,212,255,.3)}
+  .btn-outline{padding:.75rem 1.8rem;background:transparent;color:var(--text);border:1px solid var(--border);border-radius:4px;font-family:'Manrope',sans-serif;font-weight:600;font-size:.9rem;letter-spacing:.05em;text-transform:uppercase;cursor:none;transition:border-color .2s,color .2s;text-decoration:none;display:inline-block}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+  .hero-orb{position:absolute;top:10%;right:5%;width:500px;height:500px;background:radial-gradient(circle,rgba(124,111,251,.15) 0%,transparent 70%);border-radius:50%;pointer-events:none;animation:drift 8s ease-in-out infinite alternate}
+  .hero-orb2{position:absolute;bottom:5%;left:0;width:400px;height:400px;background:radial-gradient(circle,rgba(0,212,255,.08) 0%,transparent 70%);border-radius:50%;pointer-events:none;animation:drift2 10s ease-in-out infinite alternate}
+  @keyframes drift{0%{transform:translate(0,0)}100%{transform:translate(-30px,40px)}}
+  @keyframes drift2{0%{transform:translate(0,0)}100%{transform:translate(40px,-30px)}}
+
+  /* IMPACT NUMBERS */
+  #impact{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);max-width:100%;padding:4rem 3rem}
+  .impact-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--border)}
+  .stat-card{background:var(--surface);padding:2.5rem 2rem;text-align:center}
+  .stat-num{font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;color:var(--accent);line-height:1}
+  .stat-suffix{font-size:1.5rem;color:var(--accent2)}
+  .stat-label{font-size:.82rem;color:var(--muted);margin-top:.75rem;text-transform:uppercase;letter-spacing:.1em}
+
+  /* SECTION HEADERS */
+  .section-label{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:1rem}
+  .section-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:700;margin-bottom:3rem;line-height:1.15}
+
+  /* EXPERIENCE */
+  .timeline{position:relative;padding-left:2rem}
+  .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--accent),var(--accent2),transparent)}
+  .tl-item{position:relative;margin-bottom:3rem;opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+  .tl-item.visible{opacity:1;transform:translateY(0)}
+  .tl-dot{position:absolute;left:-2.35rem;top:.3rem;width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+  .tl-company{font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent2);font-weight:600;margin-bottom:.3rem}
+  .tl-role{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:.25rem}
+  .tl-date{font-size:.8rem;color:var(--muted);margin-bottom:1rem}
+  .tl-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
+  .tag{font-size:.72rem;padding:.3rem .7rem;border-radius:3px;background:var(--surface2);color:var(--muted);border:1px solid var(--border);letter-spacing:.05em;text-transform:uppercase}
+  .tl-bullets{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+  .tl-bullets li{font-size:.9rem;color:var(--muted);padding-left:1rem;position:relative;line-height:1.6}
+  .tl-bullets li::before{content:'→';position:absolute;left:0;color:var(--accent);font-size:.8rem}
+  .tl-bullets strong{color:var(--text)}
+
+  /* PROJECTS */
+  .bento{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+  .project-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.75rem;cursor:none;transition:border-color .3s,transform .3s,box-shadow .3s;opacity:0;transform:translateY(20px)}
+  .project-card.visible{opacity:1;transform:translateY(0)}
+  .project-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,212,255,.1)}
+  .proj-cat{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent2);font-weight:600;margin-bottom:.75rem}
+  .proj-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.75rem}
+  .proj-desc{font-size:.87rem;color:var(--muted);line-height:1.65}
+
+  /* SKILLS */
+  .chart-container{max-width:480px;margin:0 auto}
+
+  /* EDUCATION */
+  .edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+  .edu-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.75rem;opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+  .edu-card.visible{opacity:1;transform:translateY(0)}
+  .edu-badge{display:inline-block;font-size:.68rem;padding:.25rem .65rem;border-radius:3px;background:rgba(0,212,255,.1);color:var(--accent);border:1px solid rgba(0,212,255,.2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+  .edu-inst{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:.35rem}
+  .edu-prog{font-size:.88rem;color:var(--muted)}
+  .edu-year{font-size:.78rem;color:var(--muted);margin-top:.5rem}
+
+  /* FOOTER */
+  footer{background:var(--surface);border-top:1px solid var(--border);padding:4rem 3rem;text-align:center}
+  .footer-cta{font-family:'Syne',sans-serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;margin-bottom:1.5rem}
+  .footer-links{display:flex;justify-content:center;gap:1.5rem;margin-top:2rem;flex-wrap:wrap}
+  .footer-links a{color:var(--muted);text-decoration:none;font-size:.85rem;transition:color .2s}
+  .footer-links a:hover{color:var(--accent)}
+  footer p{color:var(--muted);font-size:.8rem;margin-top:2rem}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+  .divider{width:60px;height:2px;background:linear-gradient(to right,var(--accent),var(--accent2));margin-bottom:1rem;border-radius:2px}
+
+  @media(max-width:768px){
+    nav{padding:1rem 1.5rem}
+    .nav-links{display:none}
+    section{padding:4rem 1.5rem}
+    #impact{padding:3rem 1.5rem}
+    .hero-inner{padding:0 1.5rem}
+    footer{padding:3rem 1.5rem}
+  }
+</style>
 </head>
-<body class="antialiased">
+<body>
 
-    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
-        <!-- Header -->
-        <header class="text-center mb-10">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">SAI AKASH DEEPAK VELUVARTHI</h1>
-            <p class="text-xl text-gray-600 mt-2">Aspiring AI <strong>Product Manager</strong> | <strong>Technology Enthusiast</strong></p>
-            <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 mt-4 text-sm text-gray-500">
-                <span>+91 6303215153</span>
-                <span>tbm26akash.deepak@mastersunion.org</span>
-                <a href="https://www.linkedin.com/in/akashdeepak/" target="_blank" class="text-blue-600 hover:underline">LinkedIn</a>
-            </div>
-        </header>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
 
-        <!-- Navigation -->
-        <nav class="flex justify-center border-b mb-8 flex-wrap">
-            <button class="nav-button py-2 px-6 text-lg font-medium text-gray-700 active" data-target="overview">Overview</button>
-            <button class="nav-button py-2 px-6 text-lg font-medium text-gray-700" data-target="experience">Experience</button>
-            <button class="nav-button py-2 px-6 text-lg font-medium text-gray-700" data-target="projects">Projects</button>
-            <button class="nav-button py-2 px-6 text-lg font-medium text-gray-700" data-target="education_skills">Education & Skills</button>
-        </nav>
+<nav>
+  <div class="nav-logo">SAD·V</div>
+  <div class="nav-links">
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Education</a>
+  </div>
+</nav>
 
-        <main>
-            <!-- Overview Section -->
-            <section id="overview" class="content-section active">
-                <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
-                    <div class="lg:col-span-3 stat-card">
-                        <h2 class="text-2xl font-bold text-gray-800 mb-4">My Professional Summary</h2>
-                        <p class="text-gray-600 leading-relaxed">I'm a technology professional with a <strong>product-centric mindset</strong> and nearly 3 years of software engineering experience in a top-tier e-commerce firm. I have a proven ability to translate complex business needs into high-impact solutions, leveraging data from millions of users to inform <strong>product strategy</strong> and identify opportunities for <strong>AI-powered personalization</strong>. I'm eager to apply my strong technical foundation and formal product management training to build and scale innovative, AI-driven products.</p>
-                    </div>
-                    <div class="lg:col-span-2 stat-card">
-                         <h2 class="text-2xl font-bold text-center text-gray-800 mb-4">My Visualized Impact at TATA CLiQ</h2>
-                        <p class="text-center text-gray-600 mb-6 text-sm">Here, I've visualized the key performance indicators I helped improve, highlighting my focus on enhancing user experience and driving business results.</p>
-                        <div class="chart-container h-64">
-                            <canvas id="impactChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Experience Section -->
-            <section id="experience" class="content-section">
-                <div class="stat-card">
-                    <div class="flex justify-center mb-8">
-                        <div class="flex rounded-lg p-1 bg-gray-200">
-                             <button id="toggle-full-time" class="experience-toggle-btn py-2 px-6 text-lg font-medium rounded-md active">Full-Time</button>
-                             <button id="toggle-internship" class="experience-toggle-btn py-2 px-6 text-lg font-medium rounded-md">Internship & Leadership</button>
-                        </div>
-                    </div>
-
-                    <div id="fullTimeExperience" class="experience-content active">
-                         <h2 class="text-3xl font-bold text-center text-gray-800 mb-2">My Professional Experience</h2>
-                        <div class="text-center mb-8">
-                            <p class="text-xl font-semibold text-gray-700">TATA UNISTORE (TATA CLiQ)</p>
-                            <p class="text-md text-gray-500">Software Development Engineer - Product Optimization | Jan 2022 - Sep 2024</p>
-                        </div>
-                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            <div class="lg:col-span-1">
-                                <h3 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-blue-200">Product Strategy & Analytics</h3>
-                                <ul class="space-y-4 text-gray-600">
-                                    <li><strong>Defined and executed a product analytics strategy</strong>, instrumenting over <strong>35-40%</strong> of app touchpoints to generate user insights that directly guided product strategy.</li>
-                                    <li><strong>Leveraged user behavior analytics</strong> to re-prioritize the development backlog, improving feature delivery and adoption by <strong>12-15%</strong>.</li>
-                                    <li><strong>Owned the A/B testing framework</strong> for the user onboarding funnel, developing data-backed hypotheses that led to a <strong>15-20% reduction in user drop-off</strong>.</li>
-                                </ul>
-                            </div>
-                            <div class="lg:col-span-1">
-                                <h3 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-blue-200">Cross-Functional Collaboration</h3>
-                                <ul class="space-y-4 text-gray-600">
-                                     <li>Conducted <strong>user journey analysis</strong> to champion a new checkout experience, collaborating with design and business teams to slash cart abandonment by over <strong>30%</strong>.</li>
-                                    <li><strong>Partnered with product & business stakeholders</strong> to align needs and feature roadmaps, <strong>accelerating feature delivery by around 15%</strong>.</li>
-                                    <li>Led technical analysis to prioritize and resolve critical P0/P1 bugs, <strong>stabilizing core product paths and improving overall UX</strong>.</li>
-                                </ul>
-                            </div>
-                             <div class="lg:col-span-1">
-                                <h3 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-blue-200">Technical Problem-solving</h3>
-                                 <ul class="space-y-4 text-gray-600">
-                                    <li>Identified a search feature bottleneck and implemented a solution that <strong>cut load times by 30-40%</strong>.</li>
-                                    <li>Spearheaded performance improvements on the product details page, <strong>reducing load times by 18-20%</strong>.</li>
-                                    <li><strong>Re-architected the codebase using MVVM</strong> and increased unit test coverage by <strong>18-20%</strong>, improving long-term product stability and scalability.</li>
-                                    <li>Executed a cross-team knowledge sharing initiative, fostering collaboration and <strong>improving code efficiency by 15%</strong>.</li>
-                                 </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div id="internshipLeadershipExperience" class="experience-content">
-                        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Internship & Leadership Experience</h2>
-                        <div class="grid md:grid-cols-2 gap-x-8 gap-y-10 items-start">
-                             <div>
-                                <h3 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-blue-200">Product Innovation (Internship)</h3>
-                                 <div class="mb-4">
-                                    <p class="text-lg font-semibold text-gray-700">TATA UNISTORE (TATA CLiQ)</p>
-                                    <p class="text-sm text-gray-500">iOS Development Trainee | Jan 2022 - Jul 2022</p>
-                                </div>
-                                <ul class="space-y-3 text-gray-600">
-                                   <li><strong>Spearheaded the integration of Custom Siri Intents</strong> to enhance hands-free user journeys, aligning voice-assistant features with user needs and product roadmap priorities.</li>
-                                   <li><strong>Leveraged API-driven workflows</strong> within Siri Intents to deliver personalized, real-time data responses, improving user decision-making and interaction efficiency.</li>
-                               </ul>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-blue-200">Product Leadership</h3>
-                                <div class="mb-4">
-                                    <p class="text-lg font-semibold text-gray-700">COMPUTER SOCIETY OF INDIA (VIT-AP)</p>
-                                    <p class="text-sm text-gray-500">Technical Team Lead</p>
-                                </div>
-                                <ul class="space-y-3 text-gray-600">
-                                   <li>Identified a key student need for focused academic browsing and <strong>led the development of "Black Browser,"</strong> a product delivering a clutter-free, ad-free educational tool.</li>
-                                   <li>Drove user acquisition strategies for the society, leading initiatives that generated over <strong>400+ new member registrations</strong>.</li>
-                               </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Projects Section -->
-            <section id="projects" class="content-section">
-                 <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">My Projects</h2>
-                 <p class="text-center max-w-3xl mx-auto text-gray-600 mb-12">These projects reflect my passion for applying technology to solve practical problems, showcasing my ability to manage a project from ideation to execution.</p>
-                
-                <h3 class="text-2xl font-bold text-center text-gray-700 mb-4">AI & Full-Stack Development</h3>
-                <div class="grid md:grid-cols-2 gap-8 mb-12">
-                    <div class="stat-card">
-                         <div class="stat-card-content">
-                            <h4 class="text-xl font-bold text-gray-800 mb-3">Machine Learning: AI Image Caption Generator</h4>
-                            <p class="text-gray-600 mb-4">I developed and trained a deep learning model using <strong>CNNs and LSTMs</strong> to automatically generate accurate, context-rich captions for images.</p>
-                            <p class="text-gray-600">I engineered the end-to-end project lifecycle, from data preprocessing and <strong>model architecture design</strong> to performance evaluation, demonstrating a strong foundational understanding of applied ML principles.</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-card-content">
-                            <h4 class="text-xl font-bold text-gray-800 mb-3">Full-Stack: House Rental Management System</h4>
-                            <p class="text-gray-600 mb-4">I designed and built a secure, full-stack tenant and rental management application using <strong>Java and SQL</strong>.</p>
-                            <p class="text-gray-600">I engineered core features for automated rent reminders and secure data handling, focusing on creating a streamlined and intuitive <strong>user flow for property managers</strong>.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <h3 class="text-2xl font-bold text-center text-gray-700 mb-4">Web3 & Blockchain Proof-of-Concepts</h3>
-                <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
-                     <div class="stat-card">
-                        <div class="stat-card-content">
-                            <h4 class="text-xl font-bold text-gray-800 mb-3">Verifiable Authenticity Platform</h4>
-                            <p class="text-gray-600">Designed a decentralized application prototype to combat counterfeit goods by linking physical products to a unique <strong>"Digital Twin" NFT (ERC-721)</strong>. Developed a front-end to read and display an item's provenance from the blockchain, demonstrating a solution for enhancing supply chain transparency and consumer trust.</p>
-                        </div>
-                    </div>
-                     <div class="stat-card">
-                        <div class="stat-card-content">
-                            <h4 class="text-xl font-bold text-gray-800 mb-3">Milestone-Based Escrow DApp</h4>
-                            <p class="text-gray-600">Architected a smart contract-based escrow system to automate and secure payments for freelance projects. Designed the <strong>on-chain logic for milestone-based fund release</strong>, creating a trustless environment for B2B transactions. The front-end prototype provides a shared dashboard for clients and freelancers to track project status.</p>
-                        </div>
-                    </div>
-                     <div class="stat-card">
-                        <div class="stat-card-content">
-                            <h4 class="text-xl font-bold text-gray-800 mb-3">Decentralized Data Consent Manager</h4>
-                            <p class="text-gray-600">Prototyped a consent management platform empowering users with sovereignty over their data for AI training. Designed the <strong>on-chain access control logic</strong>, allowing users to grant, manage, and revoke data permissions. This project explores a transparent and equitable model for the AI data economy.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Education & Skills Section -->
-            <section id="education_skills" class="content-section">
-                <div class="stat-card mb-8">
-                    <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">My Education & Certifications</h2>
-                    <div class="grid md:grid-cols-2 gap-8 text-center">
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-800">MASTERS' UNION</h3>
-                            <p class="text-gray-600">PGP in Technology & Business Management</p>
-                            <p class="text-gray-500 text-sm">2025 - 2026</p>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-800">VELLORE INSTITUTE OF TECHNOLOGY (VIT-AP)</h3>
-                            <p class="text-gray-600">Bachelor of Technology (B.Tech) | GPA: 8.68/10</p>
-                            <p class="text-gray-500 text-sm">2018 - 2022</p>
-                        </div>
-                         <div class="md:col-span-2 mt-4">
-                            <h3 class="text-xl font-bold text-gray-800">CERTIFIED PRODUCT MANAGER</h3>
-                            <p class="text-gray-600">Practitioner-led Cohort from AltUni-InsideIIM</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">My Skills & Competencies</h2>
-                    <p class="text-center max-w-3xl mx-auto text-gray-600 mb-8">This radar chart visualizes my key competencies. I've balanced strategic product management skills with a strong foundation in core technical skills and my emerging knowledge in Web3 development.</p>
-                    <div class="chart-container h-[500px] max-h-[70vh]">
-                        <canvas id="skillsChart"></canvas>
-                    </div>
-                </div>
-            </section>
-
-        </main>
+<div id="hero">
+  <div class="hero-orb"></div>
+  <div class="hero-orb2"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">Masters Union '26 · PGP Technology & Business</div>
+    <h1 class="hero-name">Sai Akash<br><span>Deepak</span></h1>
+    <div class="hero-sub" id="typewriter"></div>
+    <p class="hero-desc">3 years engineering products used by millions at Tata CLiQ. Now building the strategy behind them.</p>
+    <div class="hero-ctas">
+      <a href="#experience" class="btn-primary">View My Work</a>
+      <a href="mailto:tbm26akash.deepak@mastersunion.org" class="btn-outline">Get In Touch</a>
     </div>
+  </div>
+</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const navButtons = document.querySelectorAll('.nav-button');
-            const contentSections = document.querySelectorAll('.content-section');
+<div id="impact">
+  <div class="impact-inner">
+    <div class="stat-card">
+      <div><span class="stat-num" data-target="38">0</span><span class="stat-suffix">%</span></div>
+      <div class="stat-label">App touchpoints instrumented</div>
+    </div>
+    <div class="stat-card">
+      <div><span class="stat-num" data-target="30">0</span><span class="stat-suffix">%+</span></div>
+      <div class="stat-label">Cart abandonment reduced</div>
+    </div>
+    <div class="stat-card">
+      <div><span class="stat-num" data-target="18">0</span><span class="stat-suffix">%</span></div>
+      <div class="stat-label">Drop-off cut via A/B testing</div>
+    </div>
+    <div class="stat-card">
+      <div><span class="stat-num" data-target="400">0</span><span class="stat-suffix">+</span></div>
+      <div class="stat-label">CSI member registrations</div>
+    </div>
+  </div>
+</div>
 
-            navButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const target = button.dataset.target;
+<section id="experience">
+  <div class="section-label">Where I've built</div>
+  <h2 class="section-title">Professional Experience</h2>
+  <div class="divider"></div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-company">Tata Unistore · Tata CLiQ</div>
+      <div class="tl-role">SDE — Product Optimization</div>
+      <div class="tl-date">Jan 2022 – Sep 2024 · Full-Time</div>
+      <div class="tl-tags">
+        <span class="tag">Product Analytics</span>
+        <span class="tag">A/B Testing</span>
+        <span class="tag">Cross-functional</span>
+        <span class="tag">iOS</span>
+      </div>
+      <ul class="tl-bullets">
+        <li>Instrumented <strong>35–40% of app touchpoints</strong> to generate user insights that guided product strategy</li>
+        <li>Owned the A/B testing framework — data-backed hypotheses reduced onboarding drop-off by <strong>15–20%</strong></li>
+        <li>Led checkout UX overhaul with design and biz teams, slashing cart abandonment by <strong>30%+</strong></li>
+        <li>Cut search load times <strong>30–40%</strong>; reduced PDP load times <strong>18–20%</strong></li>
+        <li>Re-architected codebase to MVVM, boosting unit test coverage <strong>18–20%</strong></li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--accent2);box-shadow:0 0 10px var(--accent2)"></div>
+      <div class="tl-company">Tata Unistore · Tata CLiQ</div>
+      <div class="tl-role">iOS Development Trainee</div>
+      <div class="tl-date">Jan 2022 – Jul 2022 · Internship</div>
+      <div class="tl-tags"><span class="tag">Siri Intents</span><span class="tag">API Integration</span><span class="tag">Personalization</span></div>
+      <ul class="tl-bullets">
+        <li>Integrated Custom Siri Intents for hands-free user journeys aligned with product roadmap</li>
+        <li>Delivered personalized, real-time data responses via API-driven Siri workflows</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:#7c6ffb;box-shadow:0 0 10px #7c6ffb"></div>
+      <div class="tl-company">Computer Society of India · VIT-AP</div>
+      <div class="tl-role">Technical Team Lead</div>
+      <div class="tl-date">Leadership Role</div>
+      <div class="tl-tags"><span class="tag">Product Leadership</span><span class="tag">User Acquisition</span></div>
+      <ul class="tl-bullets">
+        <li>Led development of <strong>"Black Browser"</strong> — clutter-free, ad-free academic browsing tool</li>
+        <li>Drove user acquisition strategies generating <strong>400+ new member registrations</strong></li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-                    navButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
+<section id="projects">
+  <div class="section-label">What I've shipped</div>
+  <h2 class="section-title">Projects</h2>
+  <div class="divider"></div>
+  <div class="bento">
+    <div class="project-card">
+      <div class="proj-cat">AI · Machine Learning</div>
+      <div class="proj-title">AI Image Caption Generator</div>
+      <div class="proj-desc">Trained a deep learning model using CNNs and LSTMs to auto-generate context-rich image captions. Engineered end-to-end: data preprocessing, model architecture design, performance evaluation.</div>
+    </div>
+    <div class="project-card">
+      <div class="proj-cat">Full-Stack Development</div>
+      <div class="proj-title">House Rental Management System</div>
+      <div class="proj-desc">Secure full-stack tenant and rental app in Java + SQL. Automated rent reminders, secure data handling, and a streamlined UX flow for property managers.</div>
+    </div>
+    <div class="project-card">
+      <div class="proj-cat">Web3 · NFT</div>
+      <div class="proj-title">Verifiable Authenticity Platform</div>
+      <div class="proj-desc">Decentralized app linking physical products to ERC-721 Digital Twin NFTs. Front-end reads provenance directly from the blockchain to combat counterfeits and enhance supply chain trust.</div>
+    </div>
+    <div class="project-card">
+      <div class="proj-cat">Web3 · Smart Contracts</div>
+      <div class="proj-title">Milestone-Based Escrow DApp</div>
+      <div class="proj-desc">Smart contract escrow for freelance projects with on-chain milestone-based fund release. Shared client/freelancer dashboard for real-time project tracking in a trustless environment.</div>
+    </div>
+    <div class="project-card">
+      <div class="proj-cat">Web3 · Data Ethics</div>
+      <div class="proj-title">Decentralized Data Consent Manager</div>
+      <div class="proj-desc">Consent management platform giving users sovereignty over their data for AI training. On-chain access control to grant, manage, and revoke permissions — exploring equitable AI data economics.</div>
+    </div>
+  </div>
+</section>
 
-                    contentSections.forEach(section => {
-                        section.classList.toggle('active', section.id === target);
-                    });
-                });
-            });
+<section id="skills">
+  <div class="section-label">What I bring</div>
+  <h2 class="section-title">Skills & Competencies</h2>
+  <div class="divider"></div>
+  <div class="chart-container">
+    <canvas id="radarChart"></canvas>
+  </div>
+</section>
 
-            const toggleFullTimeBtn = document.getElementById('toggle-full-time');
-            const toggleInternshipBtn = document.getElementById('toggle-internship');
-            const fullTimeExperience = document.getElementById('fullTimeExperience');
-            const internshipLeadershipExperience = document.getElementById('internshipLeadershipExperience');
+<section id="education">
+  <div class="section-label">Where I've studied</div>
+  <h2 class="section-title">Education & Certifications</h2>
+  <div class="divider"></div>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-badge">Current · 2025–2026</div>
+      <div class="edu-inst">Masters Union</div>
+      <div class="edu-prog">PGP in Technology & Business Management</div>
+      <div class="edu-year">New Delhi, India</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-badge">GPA 8.68 / 10</div>
+      <div class="edu-inst">VIT-AP</div>
+      <div class="edu-prog">B.Tech — Computer Science & Engineering</div>
+      <div class="edu-year">2018–2022</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-badge">Certified</div>
+      <div class="edu-inst">AltUni · InsideIIM</div>
+      <div class="edu-prog">Certified Product Manager — Practitioner-led Cohort</div>
+      <div class="edu-year">Product Management</div>
+    </div>
+  </div>
+</section>
 
-            toggleFullTimeBtn.addEventListener('click', () => {
-                fullTimeExperience.classList.add('active');
-                internshipLeadershipExperience.classList.remove('active');
-                toggleFullTimeBtn.classList.add('active');
-                toggleInternshipBtn.classList.remove('active');
-            });
+<footer>
+  <div class="footer-cta">Let's build something together.</div>
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem">
+    <a href="mailto:tbm26akash.deepak@mastersunion.org" class="btn-primary">Say Hello</a>
+    <a href="https://www.linkedin.com/in/akashdeepak/" class="btn-outline" target="_blank">LinkedIn</a>
+  </div>
+  <div class="footer-links">
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Education</a>
+  </div>
+  <p>© 2025 Sai Akash Deepak Veluvarthi · Built with intent.</p>
+</footer>
 
-            toggleInternshipBtn.addEventListener('click', () => {
-                fullTimeExperience.classList.remove('active');
-                internshipLeadershipExperience.classList.add('active');
-                toggleFullTimeBtn.classList.remove('active');
-                toggleInternshipBtn.classList.add('active');
-            });
-            
-            new Chart(document.getElementById('impactChart').getContext('2d'), {
-                type: 'bar',
-                data: {
-                    labels: ['Cart Abandonment Reduction', 'Search Load Time Reduction', 'Page Load Time Reduction', 'Feature Delivery Acceleration'],
-                    datasets: [{
-                        label: 'Improvement (%)',
-                        data: [30, 40, 25, 15],
-                        backgroundColor: ['rgba(74, 144, 226, 0.6)', 'rgba(219, 68, 55, 0.6)', 'rgba(80, 227, 194, 0.6)', 'rgba(245, 166, 35, 0.6)'],
-                        borderColor: ['rgba(74, 144, 226, 1)', 'rgba(219, 68, 55, 1)', 'rgba(80, 227, 194, 1)', 'rgba(245, 166, 35, 1)'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    scales: { x: { beginAtZero: true, title: { display: true, text: 'Percentage Improvement (%)' } } },
-                    plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${c.label}: ${c.raw}% Improvement` } } }
-                }
-            });
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX;my=e.clientY;
+    cursor.style.transform=`translate(${mx-6}px,${my-6}px)`;
+  });
+  function animRing(){
+    rx+=(mx-rx-18)*.12;ry+=(my-ry-18)*.12;
+    ring.style.transform=`translate(${rx}px,${ry}px)`;
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ring.style.transform+=` scale(1.6)`;ring.style.opacity='.9';});
+    el.addEventListener('mouseleave',()=>{ring.style.opacity='.5';});
+  });
 
-            const skillsData = {
-                labels: [
-                    'Roadmapping', 'A/B Testing', 'User Research', 'Agile/Scrum',
-                    'Python', 'Java/Swift', 'Javascript', 'SQL', 'MVVM Architecture',
-                    'Pandas/NumPy', 'Scikit-learn',
-                    'Jira/Notion', 'Figma', 'Power BI', 'Git',
-                    'Tokenomics', 'Solidity', 'Smart Contracts', 'Ethers.js'
-                ],
-                datasets: [{
-                    label: 'Product Management',
-                    data: [4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    fill: true, backgroundColor: 'rgba(74, 144, 226, 0.2)', borderColor: 'rgb(74, 144, 226)',
-                }, {
-                    label: 'Technical Skills',
-                    data: [0, 0, 0, 0, 4, 5, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    fill: true, backgroundColor: 'rgba(80, 227, 194, 0.2)', borderColor: 'rgb(80, 227, 194)',
-                },{
-                    label: 'Data & AI',
-                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0],
-                    fill: true, backgroundColor: 'rgba(219, 68, 55, 0.2)', borderColor: 'rgb(219, 68, 55)',
-                }, {
-                    label: 'Tools & Platforms',
-                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 0, 0, 0, 0],
-                    fill: true, backgroundColor: 'rgba(245, 166, 35, 0.2)', borderColor: 'rgb(245, 166, 35)',
-                }, {
-                    label: 'Web3 Development',
-                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3],
-                    fill: true, backgroundColor: 'rgba(139, 92, 246, 0.2)', borderColor: 'rgb(139, 92, 246)',
-                }]
-            };
+  const phrases=['Aspiring AI Product Manager','Former SDE @ Tata CLiQ','Masters Union \'26','Building Products with Data'];
+  let pi=0,ci=0,del=false;
+  const tw=document.getElementById('typewriter');
+  function type(){
+    const p=phrases[pi];
+    if(!del){
+      tw.textContent=p.slice(0,ci++)+'|';
+      if(ci>p.length){del=true;setTimeout(type,1200);return;}
+    } else {
+      tw.textContent=p.slice(0,ci--)+'|';
+      if(ci<0){del=false;ci=0;pi=(pi+1)%phrases.length;}
+    }
+    setTimeout(type,del?45:80);
+  }
+  type();
 
-            new Chart(document.getElementById('skillsChart').getContext('2d'), {
-                type: 'radar',
-                data: skillsData,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: { r: { suggestedMin: 0, suggestedMax: 5, pointLabels: { font: { size: 12 } }, ticks: { stepSize: 1 } } },
-                    plugins: { legend: { position: 'top', labels:{ font:{size:11}}}, tooltip: { enabled: true } }
-                }
-            });
-        });
-    </script>
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+  },{threshold:.15});
+  document.querySelectorAll('.tl-item,.project-card,.edu-card').forEach(el=>io.observe(el));
+
+  const statsObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting)return;
+      e.target.querySelectorAll('.stat-num').forEach(el=>{
+        const target=+el.dataset.target;
+        let cur=0,dur=1600,step=target/dur*16;
+        const t=setInterval(()=>{
+          cur=Math.min(cur+step,target);
+          el.textContent=Math.round(cur);
+          if(cur>=target)clearInterval(t);
+        },16);
+      });
+      statsObs.unobserve(e.target);
+    });
+  },{threshold:.3});
+  statsObs.observe(document.getElementById('impact'));
+
+  const radarObs=new IntersectionObserver(entries=>{
+    if(!entries[0].isIntersecting)return;
+    new Chart(document.getElementById('radarChart'),{
+      type:'radar',
+      data:{
+        labels:['Product Strategy','Data Analytics','A/B Testing','Cross-Functional','iOS Dev','AI / ML','Web3','Tech Architecture'],
+        datasets:[{
+          label:'Competency',
+          data:[88,85,82,80,75,70,72,78],
+          backgroundColor:'rgba(0,212,255,.12)',
+          borderColor:'#00d4ff',
+          pointBackgroundColor:'#00d4ff',
+          pointBorderColor:'#080d1a',
+          pointHoverBackgroundColor:'#7c6ffb',
+          borderWidth:2,
+          pointRadius:5,
+        }]
+      },
+      options:{
+        responsive:true,
+        animation:{duration:1400,easing:'easeInOutQuart'},
+        scales:{r:{
+          angleLines:{color:'#1e2a47'},
+          grid:{color:'#1e2a47'},
+          pointLabels:{color:'#6b7a9d',font:{family:'Manrope',size:12}},
+          ticks:{display:false},
+          suggestedMin:0,
+          suggestedMax:100
+        }},
+        plugins:{legend:{display:false}},
+      }
+    });
+    radarObs.unobserve(entries[0].target);
+  },{threshold:.3});
+  radarObs.observe(document.getElementById('skills'));
+</script>
 </body>
 </html>
